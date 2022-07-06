@@ -1,8 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 import { verify } from 'jsonwebtoken'
 import { authToken, refreshToken } from "../config";
+import { TokenPayload } from "../interface";
+import { prisma } from "../service/prisma";
 
-function authMiddleware(
+async function authMiddleware(
     req: Request, res: Response, next: NextFunction
 ) {
 
@@ -20,7 +22,14 @@ function authMiddleware(
 
         try {
 
-            verify(token, authToken.secret);
+            const data = verify(token, authToken.secret) as TokenPayload;
+            const user = await prisma.user.findUnique({
+                where: {
+                    id: data.id
+                }
+            })
+            
+
             return next()
         } catch (error) {
             throw new Error('Token inválido');

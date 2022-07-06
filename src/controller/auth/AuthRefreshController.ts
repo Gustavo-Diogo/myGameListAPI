@@ -1,16 +1,13 @@
 import { Request, Response } from "express";
 import { sign, verify } from "jsonwebtoken";
 import { authToken, refreshToken } from "../../config";
+import { TokenPayload } from '../../interface/index'
 
 
 class AuthRefreshController {
     async execute(req: Request, res: Response
     ) {
-        interface TokenPayload {
-            id: string
-            iat: number
-            exp: number
-        }
+
 
         try {
 
