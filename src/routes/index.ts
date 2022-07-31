@@ -10,5 +10,4 @@ authRoutes(router);
 gamesRoutes(router);
 
 
-
 export { router }

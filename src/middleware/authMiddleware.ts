@@ -29,7 +29,7 @@ async function authMiddleware(
                 }
             })
             
-
+            req.userId = data.id;
             return next()
         } catch (error) {
             throw new Error('Token inválido');
