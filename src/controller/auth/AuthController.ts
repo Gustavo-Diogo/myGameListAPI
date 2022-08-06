@@ -36,7 +36,18 @@ class AuthController {
                 expiresIn: refreshToken.expiresIn
             })
 
-            return res.status(200).json({ token, refreshT })
+            const games = await prisma.likedGame.findMany({
+                where:
+                {
+                    userID: user.id
+                }
+            })
+
+            games.forEach(index => {
+                delete index.userID
+            })
+
+            return res.status(200).json({ token, refreshT, games })
 
         } catch (error) {
             return res.status(400).json(error.message)
