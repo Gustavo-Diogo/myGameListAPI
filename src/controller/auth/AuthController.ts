@@ -28,6 +28,9 @@ class AuthController {
 
             const id = user.id;
 
+            delete user.password
+            delete user.id
+
             const token = sign({ id }, authToken.secret, {
                 expiresIn: authToken.expiresIn
             })
@@ -36,18 +39,18 @@ class AuthController {
                 expiresIn: refreshToken.expiresIn
             })
 
-            const games = await prisma.likedGame.findMany({
+            const likedgames = await prisma.likedGame.findMany({
                 where:
                 {
                     userID: user.id
                 }
             })
 
-            games.forEach(index => {
-                delete index.userID
-            })
+            const games = (await prisma.game.findMany({})).filter(e => likedgames.find(g => e.id == g.gameId))
+            
+            
 
-            return res.status(200).json({ token, refreshT, games })
+            return res.status(200).json({ token, refreshT, games, user })
 
         } catch (error) {
             return res.status(400).json(error.message)

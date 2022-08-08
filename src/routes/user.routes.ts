@@ -1,16 +1,14 @@
 import { Router } from "express";
-import { CreateUserController } from "../controller";
+import { CreateUserController, ListUserInfoController } from "../controller";
 import { authMiddleware } from "../middleware/authMiddleware";
 
 const create = new CreateUserController();
+const list = new ListUserInfoController()
 
 const userRoutes = (router: Router): void => {
     router.post('/user', create.execute.bind(CreateUserController))
-    router.get('/games', authMiddleware, (request, response) => {
-        response.json({
-            message: [{ name: 'Batman', id: 1 }, { name: 'Robin', id: 2 }, { name: 'catwoman', id: 3 }]
-        })
-    })
+    router.get('/user', authMiddleware, list.execute.bind(ListUserInfoController))
+
 }
 
 export { userRoutes }
