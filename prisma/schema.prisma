@@ -15,6 +15,7 @@ model user {
   username String @unique
   password String
   email    String @unique
+  profilePic String?
 
 }
 

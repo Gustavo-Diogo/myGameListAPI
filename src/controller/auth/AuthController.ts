@@ -29,7 +29,6 @@ class AuthController {
             const id = user.id;
 
             delete user.password
-            delete user.id
 
             const token = sign({ id }, authToken.secret, {
                 expiresIn: authToken.expiresIn
@@ -45,6 +44,8 @@ class AuthController {
                     userID: user.id
                 }
             })
+            
+            delete user.id
 
             const games = (await prisma.game.findMany({})).filter(e => likedgames.find(g => e.id == g.gameId))
             
