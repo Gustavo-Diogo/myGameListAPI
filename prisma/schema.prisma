@@ -34,3 +34,13 @@ model likedGame {
 
   @@unique([gameId, userID])
 }
+
+model rate {
+  id      Int     @id @default(autoincrement())
+  gameId  Int?
+  userID  String?
+  rate    Int
+  comment String?
+
+  @@unique([gameId, userID])
+}
