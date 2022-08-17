@@ -13,6 +13,9 @@ class ListGameComments {
             const comments = await prisma.rate.findMany({
                 where: {
                     gameId: game.id
+                }, select: {
+                    rate: true,
+                    comment: true
                 }
             })
 
