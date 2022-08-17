@@ -2,7 +2,7 @@
 
 export const authToken = {
     secret: String(process.env.AUTH_TOKEN),
-    expiresIn: 900
+    expiresIn: 3600
 }
 
 export const refreshToken = {

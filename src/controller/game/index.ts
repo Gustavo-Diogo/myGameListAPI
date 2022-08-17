@@ -1,4 +1,6 @@
 export * from './ListGamesController'
 export * from './AddFavoriteGameController'
 export * from './ListGamesUserController'
-export * from './ReleasedGamesControlle'
+export * from './ReleasedGamesController'
+export * from './GameCommentAdd'
+export * from './ListGameComments'
